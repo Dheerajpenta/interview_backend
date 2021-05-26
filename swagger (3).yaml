@@ -1,0 +1,253 @@
+swagger: "2.0"
+info:
+  description: "This is the api documentation of our project"
+  version: "1.0.0"
+  title: "Interview Quiz App"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+basePath: "/"
+tags:
+- name: "Candidates"
+  description: "Everything about candidates"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "Questions"
+  description: "Access to Questions"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /Candidates:
+    post:
+      tags:
+      - "Candidates"
+      summary: "Add new candidates "
+      description: ""
+      operationId: "addCandidate"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Add the body of the new candidate "
+        required: true
+        schema:
+          $ref: '#'
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    get:
+      tags:
+      - "Candidates"
+      summary: "get existing candidates"
+      description: ""
+      operationId: "updatePet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get all candidates"
+        required: true
+        schema:
+          $ref: "#/definitions/Candidate"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Candidate"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /Candidates/{Candidate_id}:
+    get:
+      tags:
+      - "Candidates"
+      summary: "Find Candidate by ID"
+      description: "Returns Candidate info"
+      operationId: "getPetById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Candidate_id"
+        in: "path"
+        description: "ID of candidate to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Candidate"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - api_key: []
+    patch:
+      tags:
+      - "Candidates"
+      summary: "Updates a candidate"
+      description: ""
+      operationId: "updatePetWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Candidate_id"
+        in: "path"
+        description: "ID of candidate that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the candidate"
+        required: false
+        type: "string"
+      
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    delete:
+      tags:
+      - "Candidates"
+      summary: "Deletes a candidate"
+      description: ""
+      operationId: "deletePet"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Candidate_id"
+        in: "path"
+        description: "candidate id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+ 
+
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Candidate:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "User"
+  Questions:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      Question:
+        type: "string"
+    xml:
+      name: "Category"
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Tag"
+  
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
