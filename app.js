@@ -7,10 +7,19 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const config = require('config');
 
 var app = express();
 
-mongoose.connect('mongodb+srv://back_end:back_end@cluster0.bomlu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.get('MONGO_URL'),{useNewUrlParser: true, useUnifiedTopology: true},function(err, conn){
+  if(err){
+      console.log("Mongo Connection Error", err);
+  }
+  if(!err && conn){
+      console.log("Mongo Connection Established");
+  }
+  });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
