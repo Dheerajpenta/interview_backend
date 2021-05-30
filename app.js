@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var mongoose = require('mongoose');
-const config = require('./config');
+var config = require('./config/default.json');
 
 
 var indexRouter = require('./routes/index');
@@ -15,7 +15,7 @@ var testsRouter = require('./routes/tests');
 
 var app = express();
 
-mongoose.connect(config.get('MONGO_URL'),{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true},function(err, conn){
+mongoose.connect(config.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true},function(err, conn){
   if(err){
       console.log("Mongo Connection Error", err);
   }

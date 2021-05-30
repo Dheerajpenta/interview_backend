@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# heroku build artifacts
+npm-debug.log
+.DS_Store
+/*.env
+
+# untill dev
+package-lock.json
