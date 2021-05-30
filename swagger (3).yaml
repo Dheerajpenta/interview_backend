@@ -17,6 +17,11 @@ tags:
   externalDocs:
     description: "Find out more"
     url: "http://swagger.io"
+- name: "Test"
+  description: "Everything about Tests"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
 - name: "Questions"
   description: "Access to Questions"
   externalDocs:
@@ -46,6 +51,7 @@ paths:
         required: true
         schema:
           $ref: '#'
+        
       responses:
         "200":
           description: "successful operation"
@@ -181,6 +187,162 @@ paths:
       - petstore_auth:
         - "write:pets"
         - "read:pets"
+  /Test:
+    post:
+      tags:
+      - "Test"
+      summary: "Add new Tests "
+      description: ""
+      operationId: "addTest"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Add the body of the new Test "
+        required: true
+        schema:
+          $ref: '#'
+        
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    get:
+      tags:
+      - "Test"
+      summary: "get existing tests"
+      description: ""
+      operationId: "updateTest"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get all Tests"
+        required: true
+        schema:
+          $ref: "#/definitions/Test"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Test"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Test not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /Test/{Test_id}:
+    get:
+      tags:
+      - "Test"
+      summary: "Find Test by ID"
+      description: "Returns Test info"
+      operationId: "getTestById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Test_id"
+        in: "path"
+        description: "ID of Test to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Test"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Test not found"
+      security:
+      - api_key: []
+    patch:
+      tags:
+      - "Test"
+      summary: "Updates a Test"
+      description: ""
+      operationId: "updateTestWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Test_id"
+        in: "path"
+        description: "ID of Test that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the Test"
+        required: false
+        type: "string"
+      
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    delete:
+      tags:
+      - "Test"
+      summary: "Deletes a Test"
+      description: ""
+      operationId: "deleteTest"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Test_id"
+        in: "path"
+        description: "Test id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Test not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
  
 
 securityDefinitions:
@@ -199,27 +361,41 @@ definitions:
   Candidate:
     type: "object"
     properties:
-      id:
+      _id:
         type: "integer"
         format: "int64"
-      username:
-        type: "string"
-      firstName:
-        type: "string"
-      lastName:
+      Name:
         type: "string"
       email:
         type: "string"
-      password:
+      mobile_number:
         type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
     xml:
       name: "User"
+  Test:
+    type: "object"
+    properties:
+      _id:
+        type: "integer"
+        format: "int64"
+      QuestionId:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int64"
+      Name:
+        type: "string"
+      Role:
+        type: "string"
+      Duration:
+        type: "string"
+      Description:
+        type: "string"
+      ExpiresAt:
+        type: "string"
+      Status:
+        type: "string"
+    
   Questions:
     type: "object"
     properties:

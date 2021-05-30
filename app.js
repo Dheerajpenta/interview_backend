@@ -4,14 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+const config = require('config');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const config = require('config');
+var candidatesRouter = require('./routes/candidates');
+var testsRouter = require('./routes/tests');
 
 var app = express();
 
-mongoose.connect(config.get('MONGO_URL'),{useNewUrlParser: true, useUnifiedTopology: true},function(err, conn){
+mongoose.connect(config.get('MONGO_URL'),{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true},function(err, conn){
   if(err){
       console.log("Mongo Connection Error", err);
   }
@@ -32,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/candidates', candidatesRouter);
+app.use('/tests', testsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
