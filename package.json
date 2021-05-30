@@ -14,6 +14,7 @@
     "jade": "~1.11.0",
     "mongoose": "^5.12.12",
     "morgan": "^1.9.1",
+    "pip": "0.0.1",
     "save": "^2.4.0",
     "swagger-ui-express": "^4.0.6",
     "yamljs": "^0.3.0"

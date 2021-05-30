@@ -11,6 +11,8 @@ var config = require('./config/default.json');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var candidatesRouter = require('./routes/candidates');
+var questionsRouter = require('./routes/questions');
+
 var testsRouter = require('./routes/tests');
 
 var app = express();
@@ -37,6 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/candidates', candidatesRouter);
+app.use('/questions', questionsRouter);
+
 app.use('/tests', testsRouter);
 
 // catch 404 and forward to error handler
