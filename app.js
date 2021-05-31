@@ -13,6 +13,8 @@ var usersRouter = require('./routes/users');
 var candidatesRouter = require('./routes/candidates');
 var testsRouter = require('./routes/tests');
 
+var skillsRouter = require('./routes/skills');
+
 var app = express();
 
 mongoose.connect(config.MONGO_URL,{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true},function(err, conn){
@@ -38,6 +40,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/candidates', candidatesRouter);
 app.use('/tests', testsRouter);
+
+app.use('/skills', skillsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
