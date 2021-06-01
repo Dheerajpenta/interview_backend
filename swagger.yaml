@@ -27,6 +27,11 @@ tags:
   externalDocs:
     description: "Find out more about our store"
     url: "http://swagger.io"
+- name: "Skills"
+  description: "Access to Skills"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
 schemes:
 - "https"
 - "http"
@@ -343,8 +348,319 @@ paths:
       - petstore_auth:
         - "write:pets"
         - "read:pets"
- 
-
+  /Questions:
+    post:
+      tags:
+      - "Questions"
+      summary: "Add new Questions "
+      description: ""
+      operationId: "addQuestion"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Add the body of the new candidate "
+        required: true
+        schema:
+          $ref: '#'
+        
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    get:
+      tags:
+      - "Questions"
+      summary: "get existing Questions"
+      description: ""
+      operationId: "updateQuestion"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get all Questions"
+        required: true
+        schema:
+          $ref: "#/definitions/Questions"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Candidate"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /Questions/{questionId}:
+    get:
+      tags:
+      - "Questions"
+      summary: "FindQuestions by ID"
+      description: "Returns Candidate info"
+      operationId: "getQuestionById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of candidate to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Questions"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - api_key: []
+    patch:
+      tags:
+      - "Questions"
+      summary: "Updates a Questions"
+      description: ""
+      operationId: "updateQuestionWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of candidate that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the candidate"
+        required: false
+        type: "string"
+      
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    delete:
+      tags:
+      - "Questions"
+      summary: "Deletes a question"
+      description: ""
+      operationId: "deleteQuestion"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "questionId"
+        in: "path"
+        description: "questionId to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /Skills:
+    post:
+      tags:
+      - "Skills"
+      summary: "Add new skills "
+      description: ""
+      operationId: "addSkills"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Add the body of the new candidate "
+        required: true
+        schema:
+          $ref: '#'
+        
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    get:
+      tags:
+      - "Skills"
+      summary: "get existing Skills"
+      description: ""
+      operationId: "updateSkills"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get all Skills"
+        required: true
+        schema:
+          $ref: "#/definitions/Skills"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Skills"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /Skills/{Skills_id}:
+    get:
+      tags:
+      - "Skills"
+      summary: "Find Skills by ID"
+      description: "Returns skills info"
+      operationId: "getSkillsById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Skills_id"
+        in: "path"
+        description: "ID of candidate to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Skills"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - api_key: []
+    patch:
+      tags:
+      - "Skills"
+      summary: "Updates a skills"
+      description: ""
+      operationId: "updateSkillsWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Skills_id"
+        in: "path"
+        description: "ID of Skills that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Skills name "
+        required: false
+        type: "string"
+      
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    delete:
+      tags:
+      - "Skills"
+      summary: "Deletes a skills"
+      description: ""
+      operationId: "deleteSkills"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Skills_id"
+        in: "path"
+        description: "candidate id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "candidate not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+        
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -375,7 +691,7 @@ definitions:
   Test:
     type: "object"
     properties:
-      _id:
+      Test_id:
         type: "integer"
         format: "int64"
       QuestionId:
@@ -399,10 +715,49 @@ definitions:
   Questions:
     type: "object"
     properties:
-      id:
+      questionID:
         type: "integer"
         format: "int64"
-      Question:
+      questionText:
+        type: "string"
+      options:
+        type: "array"
+        items:
+          type: "string"
+      marks:
+        type: "integer"
+        format: "int64"
+      difficultyLevel:
+        type: "integer"
+        format: "int64"
+      questionType:
+        type: "string"
+      correctOptions:
+        type: "array"
+        items:
+          type: "string"
+      topics:
+        type: "array"
+        items:
+          type: "string"
+      tags:
+        type: "array"
+        items:
+          type: "string"
+      addedAt:
+        type: "string"
+      UpdatedAt:
+        type: "string"
+      
+    xml:
+      name: "Category"
+  Skills:
+    type: "object"
+    properties:
+      _id:
+        type: "integer"
+        format: "int64"
+      SkillName:
         type: "string"
     xml:
       name: "Category"
