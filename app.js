@@ -8,6 +8,9 @@ var logger = require("morgan");
 
 var mongoose = require("mongoose");
 var config = require("./config/default.json");
+var swaggerUi = require("swagger-ui-express");
+var YAML = require("yamljs");
+var swaggerDocument = YAML.load("swagger.yaml");
 
 
 var indexRouter = require("./routes/index");
@@ -44,10 +47,10 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/candidates", candidatesRouter);
 app.use("/questions", questionsRouter);
-
 app.use("/tests", testsRouter);
-
 app.use("/skills", skillsRouter);
+
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
