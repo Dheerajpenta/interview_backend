@@ -110,7 +110,7 @@ function paginatedResults(model) {
   
         if (endIndex < await model.countDocuments().exec()) {
             results.next = {
-                page: page + 1,
+                page: page,
                 limit: limit
             };
         }
