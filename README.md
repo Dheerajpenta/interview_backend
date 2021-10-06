@@ -20,7 +20,7 @@ The project shows basic CRUD operations using Mongoose for a mongodb
 ## Deployment steps
 
 1. Install heroku-cli
-2. login using heroku credentials(afaisal3389@gmail.com)
+2. login using your heroku credentials
 3. heroku create (for first time) -> (checks for Procfile, if not present uses 'npm start')
 4. git push heroku master
 5. check logs at 'heroku logs -t'
